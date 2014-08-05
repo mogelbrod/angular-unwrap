@@ -18,6 +18,7 @@ app.factory 'unwrap', ['$rootScope', ($rootScope) ->
         value[key] = v
       return
 
+  # Unwrap function
   return (value, fn, reloadFnName) ->
     valueType = typeOf value
     unless valueType in ['Array', 'Object']
@@ -37,7 +38,12 @@ app.factory 'unwrap', ['$rootScope', ($rootScope) ->
 
     # Hook it up
     thenFn (data) ->
-      repopulate[valueType](value, data)
+      clear[valueType](value)
+      dataType = typeOf(data)
+      if dataType is valueType
+        repopulate[valueType](value, data)
+      else
+        $rootScope.$emit 'unwrap:typeMismatch', {value, data, dataType, valueType}
     , (reason) ->
       $rootScope.$emit 'unwrap:rejected', {reason, value, valueType}
       clear[valueType](value)
