@@ -9,3 +9,8 @@ html(ng-app="unwrap")
       li(ng-repeat="(key, value) in demo")
         strong {{key}}:
         em  {{value.v || value.join(' ')}}
+    h2 Event log
+    ul.log
+      li(ng-repeat="row in log")
+        strong {{row.name}}:
+        code  {{row.args | json}}

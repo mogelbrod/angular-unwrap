@@ -29,9 +29,15 @@ app.controller 'DemoCtrl', [
     deferredArray: unwrap [], d2.promise
     rescued: unwrap {}, d3.promise.catch (err) ->
       return v: "caught and rescued!"
+    wrongType: unwrap [], $q.when {}
+
+  $scope.log = []
+  log = (event, args) ->
+    $scope.log.push {name: event.name, args}
+    console.log event.name, "event:", args
 
   # Option to listen to rejection events on $rootScope
-  $rootScope.$on 'unwrap:rejected', (event, args) ->
-    console.log "unwrap:rejected event", args
+  $rootScope.$on 'unwrap:rejected', log
+  $rootScope.$on 'unwrap:typeMismatch', log
 
 ]
