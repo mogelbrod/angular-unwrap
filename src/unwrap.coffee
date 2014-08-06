@@ -20,6 +20,10 @@ app.factory 'unwrap', ['$rootScope', ($rootScope) ->
 
   # Unwrap function
   return (value, fn, reloadFnName) ->
+    unless arguments.length > 1
+      throw new Error "unwrap: Initial value and function/promise required " +
+        "but missing one (propably initial value)"
+
     valueType = typeOf value
     unless valueType in ['Array', 'Object']
       error = "unwrap: Value must be an array or object (was #{valueType})"
