@@ -1,6 +1,6 @@
 {
   "name": "angular-unwrap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "unwrap() util which alleviates the deprecation of promise unwrapping in AngularJS v1.2",
   "main": "unwrap.js",
   "scripts": {
