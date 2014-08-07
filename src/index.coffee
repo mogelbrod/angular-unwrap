@@ -30,6 +30,10 @@ app.controller 'DemoCtrl', [
     rescued: unwrap {}, d3.promise.catch (err) ->
       return v: "caught and rescued!"
     wrongType: unwrap [], $q.when {}
+    reusable: unwrap [], (-> $q.when [Math.random()]), 'reload'
+
+  $timeout $scope.demo.reusable.reload, 3000
+  $timeout (-> $scope.demo.reusable.reload()), 6000
 
   $scope.log = []
   log = (event, args) ->
